@@ -143,7 +143,7 @@ public class Person {
         if(Person.letterFrequencies == null) {
             Person.letterFrequencies = latterFrequencyString();
         }
-        populateStringFieldsWithRandomValues();
+        populateFieldsWithRandomValues();
     }
 
     // Add constructors, getters, and setters for all fields here
@@ -161,7 +161,7 @@ public class Person {
 
     //This code populates all class members with random values for testing
 
-    private void populateStringFieldsWithRandomValues() {
+    private void populateFieldsWithRandomValues() {
         Field[] fields = this.getClass().getDeclaredFields();
         Random random = new Random();
         for (Field field : fields) {

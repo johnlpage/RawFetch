@@ -52,7 +52,7 @@ public class RawPersonRepositoryImpl implements RawPersonRepository {
                         database.getCodecRegistry()));
 
         Bson mongoQuery = Filters.empty();
-        // What we get is immutable - so we add out closingBalance on the server
+
         // We also need to implement anything out Mappings in Spring are doing
 
         MqlValue renamedId = current().getField("_id");

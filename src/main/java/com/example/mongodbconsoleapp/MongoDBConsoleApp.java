@@ -46,13 +46,13 @@ public class MongoDBConsoleApp implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         long count = personRepository.count();
-        boolean useRaw=false;
-        for(String arg:args ){
-            if(arg.equalsIgnoreCase("true")) {
+        boolean useRaw = false;
+        for (String arg : args) {
+            if (arg.equalsIgnoreCase("true")) {
                 useRaw = true;
             }
         }
-        
+
         // If we find none then we need to generate sample data
         if (count == 0) {
             System.out.println("\n\n\n-------------\nNo data found - making some, this will take a long time.");
@@ -60,24 +60,21 @@ public class MongoDBConsoleApp implements CommandLineRunner {
             System.exit(0);
         }
         System.out.println("Fetching " + count + " person records to JSON");
-       ;
+        ;
         long startTime = System.nanoTime();
 
         if (useRaw == false) {
+            ObjectMapper objectMapper = new ObjectMapper();
+            ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
             try (Stream<Person> personStream = personRepository.findAllByStream().stream();) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                ObjectWriter objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
-
                 personStream.forEach(person -> {
                     try {
                         String json = objectWriter.writeValueAsString(person);
-                          // Just so we are using the value
+                        // Use json so not optimized out
                         if (json.length() < 1) {
                             System.exit(1);
                         }
-                       
-
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 });
@@ -86,10 +83,10 @@ public class MongoDBConsoleApp implements CommandLineRunner {
             try (Stream<String> personStream = personRepository.findRawJsonStream().stream();) {
 
                 personStream.forEach(person -> {
-// Just so we are using the value 
-                    if (person.length() < 1) { 
+                    // Just so we are using the value
+                    if (person.length() < 1) {
                         System.exit(1);
-                    } 
+                    }
 
                 });
             }
