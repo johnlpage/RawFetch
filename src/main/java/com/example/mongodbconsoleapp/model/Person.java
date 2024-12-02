@@ -15,7 +15,7 @@ public class Person {
     private static String letterFrequencies = null ;
 
     @Id
-    private ObjectId id;
+    private ObjectId personId;
 
     // Personal Information
     private String firstName;
