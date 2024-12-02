@@ -14,7 +14,7 @@ It Requires Maven and Java 17 to build.
 
 1. Download this repository.
 
-2. dit the file `application.properties` to contain your URI to a MongoDB cluster
+2. Edit the file `application.properties` to contain your URI to a MongoDB cluster
 
 3. Run the following commands in the top directory
 
