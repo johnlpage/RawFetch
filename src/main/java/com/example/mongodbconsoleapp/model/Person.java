@@ -6,9 +6,13 @@ import java.lang.reflect.Field;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 
 @Document(collection = "people")
 public class Person {
+    private static String letterFrequencies = null ;
 
     @Id
     private ObjectId id;
@@ -136,6 +140,9 @@ public class Person {
     // Constructors, getters, and setters
 
     public Person() {
+        if(Person.letterFrequencies == null) {
+            Person.letterFrequencies = latterFrequencyString();
+        }
         populateStringFieldsWithRandomValues();
     }
 
@@ -190,12 +197,56 @@ public class Person {
         }
     }
     private  String generateRandomString(Random random, int length) {
-        String characters = "   ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
         StringBuilder sb = new StringBuilder(length);
         for (int i = 0; i < length; i++) {
-            sb.append(characters.charAt(random.nextInt(characters.length())));
+            sb.append(letterFrequencies.charAt(random.nextInt(letterFrequencies.length())));
         }
         return sb.toString();
     }
+
+
+
+    private String latterFrequencyString() {
+        // Define the frequency of each letter in the English language
+        Map<Character, Integer> letterFrequencies = new LinkedHashMap<>();
+        letterFrequencies.put('e', 127);
+        letterFrequencies.put('t', 91);
+        letterFrequencies.put('a', 82);
+        letterFrequencies.put('o', 75);
+        letterFrequencies.put('i', 70);
+        letterFrequencies.put('n', 68);
+        letterFrequencies.put('s', 63);
+        letterFrequencies.put('h', 61);
+        letterFrequencies.put('r', 60);
+        letterFrequencies.put('d', 42);
+        letterFrequencies.put('l', 40);
+        letterFrequencies.put('c', 28);
+        letterFrequencies.put('u', 28);
+        letterFrequencies.put('m', 24);
+        letterFrequencies.put('w', 24);
+        letterFrequencies.put('f', 22);
+        letterFrequencies.put('g', 20);
+        letterFrequencies.put('y', 20);
+        letterFrequencies.put('p', 19);
+        letterFrequencies.put('b', 15);
+        letterFrequencies.put('v', 10);
+        letterFrequencies.put('k', 8);
+        letterFrequencies.put('j', 2);
+        letterFrequencies.put('x', 2);
+        letterFrequencies.put('q', 1);
+        letterFrequencies.put('z', 1);
+        letterFrequencies.put(' ', 150);
+        // Build the string based on the frequencies
+        StringBuilder frequencyString = new StringBuilder();
+        for (Map.Entry<Character, Integer> entry : letterFrequencies.entrySet()) {
+            char letter = entry.getKey();
+            int frequency = entry.getValue();
+            for (int i = 0; i < frequency; i++) {
+                frequencyString.append(letter);
+            }
+        }
+       return frequencyString.toString();
+    }
+
 }
 
