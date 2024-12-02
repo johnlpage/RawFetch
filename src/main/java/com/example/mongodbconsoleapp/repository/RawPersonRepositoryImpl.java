@@ -35,7 +35,7 @@ public class RawPersonRepositoryImpl implements RawPersonRepository {
     private MongoClient mongoClient;
 
 
-    public Streamable<Stream<String>> findRawJsonStream(MongoClient mongoClient, Long accountId) {
+    public Streamable<Stream<String>> findRawJsonStream() {
 
         JsonWriterSettings settings = JsonWriterSettings.builder().outputMode(JsonMode.RELAXED)
         .objectIdConverter((value, writer) -> writer.writeString(value.toHexString()))
