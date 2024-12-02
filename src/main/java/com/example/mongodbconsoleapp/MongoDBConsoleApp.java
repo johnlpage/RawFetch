@@ -28,7 +28,7 @@ public class MongoDBConsoleApp implements CommandLineRunner {
 
     public void bulkLoadPeople() {
         List<Person> batch = new ArrayList<Person>();
-        final int nDocs = 100_000;
+        final int nDocs = 300_000; // 300,000 is about 1GB of JSON
         for (int personNo = 0; personNo < nDocs; personNo++) {
             Person person = new Person();
             batch.add(person);
